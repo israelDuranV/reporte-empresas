@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reporte empresas</title>
+  <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
+  <link href="assets/DataTables/datatables.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+      <h1 class="text-center">Reporte empresas</h1>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoEmpleadoModal">
+        Nuevo empleado
+      </button>
+      <div class="table-responsive">
+        <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Paterno</th>
+            <th>Materno</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tbodyEmpleados">
+          <tr>
+            <td colspan="6">No hay informaci&oacute;n para mostrar</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <!--Modal nuevo empleado-->
+      <div class="modal fade" id="nuevoEmpleadoModal" tabindex="-1" aria-labelledby="nuevoEmpleadoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Nuevo Empleado</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="nuevoEmpleado" name="nuevoEmpleado">
+            <div class="modal-body">
+              
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                      Datos Personales
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="form-group">
+                          <label for="nombre">Nombre</label>
+                          <input type="text" name="nombre" id="nombre" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="paterno">Apellido Paterno</label>
+                          <input type="text" name="paterno" id="paterno" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="materno">Apellido Materno</label>
+                          <input type="text" name="materno" id="materno" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="email">Email</label>
+                          <input type="email" name="email" id="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="telefono">Telefono</label>
+                          <input type="text" name="telefono" id="telefono" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="nacimiento">Fecha de nacimiento</label>
+                          <input type="date" name="nacimiento" id="nacimiento" class="form-control">
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Domicilio
+                    </button>
+                  </h2>
+                  <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                     
+                        <div class="form-group">
+                          <label for="calle">Calle</label>
+                          <input type="text" name="calle" id="calle" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="numero">N&uacute;mero</label>
+                          <input type="number" name="numero" id="numero" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="ciudad">Ciudad</label>
+                          <input type="text" name="ciudad" id="ciudad" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="estado">Estado</label>
+                          <input type="text" name="estado" id="estado" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="pais">Pa&iacute;s</label>
+                          <input type="text" name="pais" id="pais" class="form-control">
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Datos de contrataci&oacute;n
+                    </button>
+                  </h2>
+                  <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="form-group">
+                          <label for="salario">Salario</label>
+                          <input type="number" name="salario" id="salario" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="empresa">Empresa</label>
+                          <select name="empresa" id="empresa" class="form-control">
+                            <option value="0">Selecciona una opci&oacute;n</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="departamento">Departamento</label>
+                          <select name="departamento" id="departamento" class="form-control">
+                            <option value="0">Selecciona una opci&oacute;n</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="cargo">Cargo</label>
+                          <select name="cargo" id="cargo" class="form-control">
+                            <option value="0">Selecciona una opci&oacute;n</option>
+                          </select>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" id="guardarNuevoEmpledo" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!--Termina Modal nuevo empleado-->
+            <!--Modal nuevo empleado editar-->
+            <div class="modal fade" id="editarEmpleadoModal" tabindex="-1" aria-labelledby="editarEmpleadoModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Editar Empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <form id="editarEmpleado" name="editarEmpleado">
+                  <input type="hidden" id="idEditar" name="idEditar" value=""/>
+                  <input type="hidden" id="idDireccion" name="idEditar" value=""/>
+                  <div class="modal-body">
+                    
+                    <div class="accordion" id="accordionExampleEditar">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                          data-bs-target="#collapseOneEditar" aria-expanded="false" aria-controls="collapseOneEditar">
+                            Datos Personales
+                          </button>
+                        </h2>
+                        <div id="collapseOneEditar" class="accordion-collapse collapse" data-bs-parent="#accordionExampleEditar">
+                          <div class="accordion-body">
+                              <div class="form-group">
+                                <label for="nombreEditar">Nombre</label>
+                                <input type="text" name="nombreEditar" id="nombreEditar" class="form-control">
+                              </div>
+                              <div class="form-group">
+                                <label for="paternoEditar">Apellido Paterno</label>
+                                <input type="text" name="paternoEditar" id="paternoEditar" class="form-control">
+                              </div>
+                              <div class="form-group">
+                                <label for="maternoEitar">Apellido Materno</label>
+                                <input type="text" name="maternoEditar" id="maternoEditar" class="form-control">
+                              </div>
+                              <div class="form-group">
+                                <label for="emailEditar">Email</label>
+                                <input type="emailEditar" name="emailEditar" id="emailEditar" class="form-control">
+                              </div>
+                              <div class="form-group">
+                                <label for="telefonoEditar">Telefono</label>
+                                <input type="text" name="telefonoEditar" id="telefonoEditar" class="form-control">
+                              </div>
+                              <div class="form-group">
+                                <label for="nacimientoEditar">Fecha de nacimiento</label>
+                                <input type="date" name="nacimientoEditar" id="nacimientoEditar" class="form-control">
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoEditar" aria-expanded="false" aria-controls="collapseTwo">
+                            Domicilio
+                          </button>
+                        </h2>
+                        <div id="collapseTwoEditar" class="accordion-collapse collapse" data-bs-parent="#accordionExampleEditar">
+                          <div class="accordion-body">
+                           
+                              <div class="form-group">
+                                <label for="calleEditar">Calle</label>
+                                <input type="text" name="calleEditar" id="calleEditar" class="form-control">
+                              </div>
+                              <div class="form-group">
+                                <label for="numeroEditar">N&uacute;mero</label>
+                                <input type="number" name="numeroEditar" id="numeroEditar" class="form-control">
+                              </div>
+                              <div class="form-group">
+                                <label for="ciudadEditar">Ciudad</label>
+                                <input type="text" name="ciudadEditar" id="ciudadEditar" class="form-control">
+                              </div>
+                              <div class="form-group">
+                                <label for="estadoEditar">Estado</label>
+                                <input type="text" name="estadoEditar" id="estadoEditar" class="form-control">
+                              </div>
+                              <div class="form-group">
+                                <label for="paisEditar">Pa&iacute;s</label>
+                                <input type="text" name="paisEditar" id="paisEditar" class="form-control">
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeEditar" aria-expanded="false" aria-controls="collapseThree">
+                            Datos de contrataci&oacute;n
+                          </button>
+                        </h2>
+                        <div id="collapseThreeEditar" class="accordion-collapse collapse" data-bs-parent="#accordionExampleEditar">
+                          <div class="accordion-body">
+                              <div class="form-group">
+                                <label for="salarioEditar">Salario</label>
+                                <input type="number" name="salarioEditar" id="salarioEditar" class="form-control">
+                              </div>
+                              <div class="form-group">
+                                <label for="empresaEditar">Empresa</label>
+                                <select name="empresaEditar" id="empresaEditar" class="form-control">
+                                  <option value="0">Selecciona una opci&oacute;n</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="departamentoEditar">Departamento</label>
+                                <select name="departamentoEditar" id="departamentoEditar" class="form-control">
+                                  <option value="0">Selecciona una opci&oacute;n</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="cargo">Cargo</label>
+                                <select name="cargoEditar" id="cargoEditar" class="form-control">
+                                  <option value="0">Selecciona una opci&oacute;n</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="enviarEditarEmpleado" class="btn btn-primary">Guardar Cambios</button>
+                  </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!--Termina Modal nuevo empleado-->
+  </div>
+
+
+</body>
+<script src="assets/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+<script src="assets/js/jquery-3.7.1.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="assets/DataTables/datatables.min.js"></script>
+</html>

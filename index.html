@@ -3,16 +3,21 @@
 <head>
   <title>Reporte empresas</title>
   <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
-  <link href="assets/DataTables/datatables.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<!-- Extensión de botones -->
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
 </head>
 <body>
   <div class="container">
       <h1 class="text-center">Reporte empresas</h1>
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoEmpleadoModal">
-        Nuevo empleado
+        <i class="fa fa-plus" aria-hidden="true"></i> Nuevo empleado
       </button>
       <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table table-striped" id="tabla-empresas">
         <thead>
           <tr>
             <th>#</th>
@@ -21,7 +26,7 @@
             <th>Materno</th>
             <th>Email</th>
             <th>Telefono</th>
-            <th></th>
+            <th width="25px"></th>
           </tr>
         </thead>
         <tbody id="tbodyEmpleados">
@@ -287,5 +292,15 @@
 <script src="assets/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
 <script src="assets/js/jquery-3.7.1.js"></script>
 <script src="assets/js/script.js"></script>
-<script src="assets/DataTables/datatables.min.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+
+<!-- Librerías para exportación a Excel y PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </html>

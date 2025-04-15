@@ -4,6 +4,7 @@ try {
     var $empresas = $("#empresas");
     var $departamentos = $("#departamentos");
     var $cargos = $("#cargos");
+    var salt = new Date().getTime();
 
     var $fnJS = {
         ajaxModulo: function(accion, obj) {
@@ -89,6 +90,58 @@ try {
                     if (Contador === 0) { $alert('No existen registros.'); return false; }
                     
                     switch (accion) { // switch accion
+                        case 'getEmpresas':
+                            console.log(Datos);
+                            const selectEmpresas = document.getElementById("empresa");
+                            const selectEmpresasEditar = document.getElementById("empresaEditar");
+                            $.each(Datos, function(index, i) {
+                                let option = document.createElement("option");
+                                option.value = i.id;
+                                option.textContent = i.nombre;
+                                selectEmpresas.appendChild(option);
+                                let option2 = document.createElement("option");
+                                option2.value = i.id;
+                                option2.textContent = i.nombre;
+                                selectEmpresasEditar.appendChild(option2);
+                            });
+                        break;
+                        case 'getDepartamentos':
+                            console.log(Datos);
+                            const selectDepartamentos = document.getElementById("departamento");
+                            const selectDepartamentosEditar = document.getElementById("departamentoEditar");
+                            $.each(Datos, function(index, i) {
+                                let option = document.createElement("option");
+                                option.value = i.id;
+                                option.textContent = i.name;
+                                selectDepartamentos.appendChild(option);
+                                let option2 = document.createElement("option");
+                                option2.value = i.id;
+                                option2.textContent = i.nombre;
+                                selectDepartamentosEditar.appendChild(option2);
+                            });
+                        break;
+                        case 'getCargos':
+                            console.log(Datos);
+                            const selectCargos = document.getElementById("cargo");
+                            const selectCargosEditar = document.getElementById("cargoEditar");
+
+                            $.each(Datos, function(index, i) {
+                                let option = document.createElement("option");
+                                option.value = i.id;
+                                option.textContent = i.name;
+                                selectCargos.appendChild(option);
+                                let option2 = document.createElement("option");
+                                option2.value = i.id;
+                                option2.textContent = i.nombre;
+                                selectCargosEditar.appendChild(option2);
+                            });
+                        break;
+                        case 'eliminarEmpleado':
+                        case 'editarEmpleado':
+                        case 'guardarEmpleado':
+                            let obj = {};
+                            $fnJS.ajaxModulo('tablaEmpleados', obj);
+                        break;
                         case 'tablaEmpleados':
                             console.log(Datos);
                             $tbodyEmpleados.html("");
@@ -100,7 +153,9 @@ try {
                                             <td>${i.materno}</td>
                                             <td>${i.email}</td>
                                             <td>${i.telefono}</td>
-                                             <td><button type="button" class="btn btn-warning btn-editar" 
+                                             <td>
+                                             <div class="btn-group" role="group" aria-label="tools">
+                                             <button type="button" class="btn btn-warning btn-editar" 
                                                  data-id="${i.id}"
                                                  data-nombre="${i.nombre}"
                                                  data-paterno="${i.paterno}"
@@ -120,66 +175,60 @@ try {
                                                  data-direccionid="${i.direccion_id}"
                                                   data-bs-toggle="modal" 
                                                   data-bs-target="#editarEmpleadoModal">
-                                                    Editar
+                                                    <i class="fa fa-pencil" aria-hidden="true"></i> Editar
                                                 </button>
                                                 <button class="btn btn-danger btn-eliminar"
-                                                   data-id="${i.id}">Eliminar
+                                                   data-id="${i.id}"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar
                                                 </button>
                                             </td>
+                                            </div>
                                             </tr>`;
                             });
-                            /*var table = $tbodyEmpleados.parent().DataTable();
+                            let $tbody = $('#tbodyEmpleados');
+                            var table = $tbody.parent().DataTable();
                             table.destroy();
-                            */$tbodyEmpleados.html(html);
-                            /*
-                            $tbodyEmpleados.parent().DataTable({
-                                "language": { "url": "config/Spanish.json" },
-                                "pageLength": 50
-                            });*/
+                            $tbody.html(html);
+                            if (!$.fn.DataTable.isDataTable('#tabla-empresas')) {
+                                $tbody.parent().DataTable({
+                                "paging": true,      // Activa la paginación
+                                "searching": true,   // Activa el cuadro de búsqueda
+                                "ordering": true,    // Activa la ordenación
+                                dom: 'lfrtipB',
+                                language: {
+                                    "decimal": "",
+                                    "emptyTable": "No hay información",
+                                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                                    "infoPostFix": "",
+                                    "thousands": ",",
+                                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                                    "loadingRecords": "Cargando...",
+                                    "processing": "Procesando...",
+                                    "search": "Buscar:",
+                                    "zeroRecords": "Sin resultados encontrados",
+                                    "paginate": {
+                                        "first": "Primero",
+                                        "last": "Último",
+                                        "next": "Siguiente",
+                                        "previous": "Anterior"
+                                    }
+                                },
+                                buttons: [
+                                    { extend: 'excelHtml5', text: 'Exportar a Excel' ,  exportOptions: {
+                                        columns: [0, 1, 3, 4, 5] 
+                                    }
+                    },
+                                    { extend: 'pdfHtml5', text: 'Exportar a PDF', exportOptions: {
+                                        columns: [0, 1, 3, 4, 5] 
+                                    }
+                                }
+                                ]
+                            });
+                        }
+                        
                             break;
-                            case 'getEmpresas':
-                                console.log(Datos);
-                                const selectEmpresas = document.getElementById("empresa");
-                                const selectEmpresasEditar = document.getElementById("empresaEditar");
-                                $.each(Datos, function(index, i) {
-                                    let option = document.createElement("option");
-                                    option.value = i.id;
-                                    option.textContent = i.nombre;
-                                    selectEmpresas.appendChild(option);
-                                    selectEmpresasEditar.appendChild(option);
-                                });
-                            break;
-                            case 'getDepartamentos':
-                                console.log(Datos);
-                                const selectDepartamentos = document.getElementById("departamento");
-                                const selectDepartamentosEditar = document.getElementById("departamentoEditar");
-                                $.each(Datos, function(index, i) {
-                                    let option = document.createElement("option");
-                                    option.value = i.id;
-                                    option.textContent = i.name;
-                                    selectDepartamentos.appendChild(option);
-                                    selectDepartamentosEditar.appendChild(option);
-                                });
-                            break;
-                            case 'getCargos':
-                                console.log(Datos);
-                                const selectCargos = document.getElementById("cargo");
-                                const selectCargosEditar = document.getElementById("cargoEditar");
 
-                                $.each(Datos, function(index, i) {
-                                    let option = document.createElement("option");
-                                    option.value = i.id;
-                                    option.textContent = i.name;
-                                    selectCargos.appendChild(option);
-                                    selectCargosEditar.appendChild(option);
-                                });
-                            break;
-                            case 'eliminarEmpleado':
-                            case 'editarEmpleado':
-                            case 'guardarEmpleado':
-                                let obj = {};
-                                $fnJS.ajaxModulo('tablaEmpleados', obj);
-                            break;
                     }
                 }, // success
                 // Informa el error interno al usuario
@@ -195,10 +244,10 @@ try {
 
     jQuery(document).ready(function($) {
         let obj = {};
+        $fnJS.ajaxModulo('tablaEmpleados', obj);
         $fnJS.ajaxModulo('getEmpresas', obj);
         $fnJS.ajaxModulo('getDepartamentos', obj);
         $fnJS.ajaxModulo('getCargos', obj);
-        $fnJS.ajaxModulo('tablaEmpleados', obj);
     });
     let formatoDate = (fechaOriginal)=>{
         const fecha = new Date(fechaOriginal);
@@ -253,7 +302,21 @@ try {
         let id = event.target.attributes['data-id'].nodeValue;
         let obj = {};
         obj.id = id;
-        $fnJS.ajaxModulo('eliminarEmpleado', obj);
+        Swal.fire({
+            title: "Estas seguro de eliminar el empleado?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Aceptar",
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $fnJS.ajaxModulo('eliminarEmpleado', obj);
+              Swal.fire("Eliminado correctamente!", "", "success");
+            } else if (result.isDenied) {
+              Swal.fire("Abortado", "", "info");
+            }
+          });
+
     });
     $("#enviarEditarEmpleado").on("click",function(){
         let obj = {};
@@ -274,7 +337,21 @@ try {
         obj.empresa = $("#empresaEditar").val();
         obj.departamento = $("#departamentoEditar").val();
         obj.cargo = $("#cargoEditar").val();
-        $fnJS.ajaxModulo('editarEmpleado', obj);
+        Swal.fire({
+            title: "Estas seguro de actualizar el empleado?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Aceptar",
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $fnJS.ajaxModulo('editarEmpleado', obj);
+              Swal.fire("Actualizado correctamente!", "", "success");
+            } else if (result.isDenied) {
+              Swal.fire("Abortado", "", "info");
+            }
+          });
+
     });
     $("#guardarNuevoEmpledo").on("click",function(){
         let obj = {};

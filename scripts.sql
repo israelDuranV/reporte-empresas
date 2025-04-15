@@ -126,7 +126,7 @@ VALUES("Beatriz","Lopez","Caballero","bety@correo.com", "5555555555","1995-04-06
 
 
 DROP PROCEDURE IF EXISTS `sp_consultaEmpleados`;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_consultaEmpleados`(
+CREATE PROCEDURE `sp_consultaEmpleados`(
     IN `_id` INT,
     IN `_idDireccion` INT,
     IN `_accion` VARCHAR(15),
@@ -168,7 +168,7 @@ BEGIN
         SELECT 'ok' AS message, 0 AS error;
         WHEN 'INDEX' THEN
             SELECT e.id, e.nombre, e.paterno, e.materno, e.email, e.telefono, e.fecha_nacimiento, e.salario,
-                   em.nombre AS empresa, em.telefono AS telempresa, em.tipo_empresa_id, te.name AS tipo_empresa,
+                   em.nombre AS empresa, e.empresa_id, em.telefono AS telempresa, em.tipo_empresa_id, te.name AS tipo_empresa,
                    em.industria_id, i.name AS industria, em.direccion_id, dem.calle, dem.numero, dem.ciudad,
                    dem.estado, dem.pais, e.departamento_id, dd.name AS departamento, e.cargos_id, c.name AS cargo
             FROM empleados e
